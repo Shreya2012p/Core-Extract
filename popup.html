@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        width: 400px;
+        padding: 20px;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        color: #fff;
+        margin: 0;
+      }
+
+      h2 {
+        margin-top: 0;
+        color: #fff;
+        font-size: 24px;
+        text-align: center;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      }
+
+      .controls {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .control-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #fff;
+        font-weight: 500;
+      }
+
+      select {
+        background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 8px;
+        width: 100%;
+        cursor: pointer;
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+      }
+
+      select:hover {
+        background: linear-gradient(135deg, #3a3a3a, #4a4a4a);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      select option {
+        background-color: #2a2a2a;
+        color: #ffffff;
+        padding: 8px;
+      }
+
+      select option:hover {
+        background-color: #3a3a3a;
+      }
+        background: linear-gradient(135deg, #323232, #202020);
+      }
+      select:hover, select:focus {
+        border-color: rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.1);
+        outline: none;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      }
+
+      #summarize {
+        background: linear-gradient(135deg, #4a00e0, #8e2de2);
+      }
+
+      #result {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 20px 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        max-height: 500px;
+        overflow-y: auto;
+        line-height: 1.6;
+        font-size: 15px;
+        text-align: justify;
+        font-weight: bold;
+      }
+
+      .summary-text {
+        margin-bottom: 20px;
+      }
+
+      .media-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .media-item {
+        width: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        background: rgba(255, 255, 255, 0.05);
+        min-height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .media-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .media-item .fallback-img {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+      }
+
+      .media-item iframe {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border: none;
+      }
+
+      .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .loader {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        100% { transform: rotate(360deg); }
+      }
+
+      .audio-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 30px;
+        padding: 10px 20px;
+        margin-top: 20px;
+      }
+
+      #play-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4a00e0, #8e2de2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        flex-shrink: 0;
+      }
+
+      .progress-container {
+        flex-grow: 1;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      #audio-progress {
+        height: 100%;
+        width: 0;
+        background: linear-gradient(to right, #4a00e0, #8e2de2);
+        transition: width 0.1s linear;
+      }
+
+      #time-display {
+        color: #fff;
+        font-size: 14px;
+        min-width: 45px;
+      }
+
+      #copy-btn, #share-btn {
+        margin-top: 10px;
+        background: linear-gradient(135deg, #4a00e0, #8e2de2);
+      }
+
+      #share-modal {
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        color: #fff;
+      }
+
+      #whatsapp-share, #linkedin-share, #twitter-share {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      #whatsapp-share:hover { background: #25D366; }
+      #linkedin-share:hover { background: #0077B5; }
+      #twitter-share:hover { background: #1DA1F2; }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <h2>CORE EXTRACT</h2>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="summary-type">Summary Type:</label>
+        <select id="summary-type">
+          <option value="brief">Brief (2-3 sentences)</option>
+          <option value="detailed">Detailed</option>
+          <option value="bullets">Bullet Points</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="summary-language">Language:</label>
+        <select id="summary-language">
+          <option value="en">English</option>
+          <option value="hi">Hindi</option>
+          <option value="te">Telugu</option>
+          <option value="kn">Kannada</option>
+          <option value="ta">Tamil</option>
+          <option value="ml">Malayalam</option>
+          <option value="mr">Marathi</option>
+          <option value="gu">Gujarati</option>
+          <option value="bn">Bengali</option>
+          <option value="pa">Punjabi</option>
+        </select>
+      </div>
+
+      <button id="summarize">Generate Summary</button>
+    </div>
+
+    <div id="result"></div>
+
+    <button id="copy-btn">Copy</button>
+    <button id="share-btn">Share</button>
+
+    <div id="share-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); z-index: 1000;">
+      <h3 style="margin-top: 0; color: #fff;">Share</h3>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <button id="whatsapp-share">WhatsApp</button>
+        <button id="linkedin-share">LinkedIn</button>
+        <button id="twitter-share">Twitter</button>
+      </div>
+    </div>
+
+    <div id="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 999;"></div>
+
+    <div class="audio-controls">
+      <button id="play-btn">
+        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" style="display: none;">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+      </button>
+      <div class="progress-container">
+        <div id="audio-progress"></div>
+      </div>
+      <span id="time-display">00:00</span>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

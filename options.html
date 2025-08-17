@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Core Extract Settings</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        padding: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 50%, #a8b4fe 100%);
+      }
+      h1 {
+        color: #2c3e50;
+        margin-bottom: 25px;
+        font-size: 28px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-align: center;
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .form-group {
+        margin-bottom: 25px;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 16px;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        box-sizing: border-box;
+        border: 2px solid #e1e8ed;
+        border-radius: 6px;
+        font-size: 15px;
+        transition: border-color 0.2s;
+      }
+      input[type="text"]:focus {
+        border-color: #4285f4;
+        outline: none;
+      }
+      button {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: transform 0.2s, box-shadow 0.2s;
+        display: block;
+        margin: 0 auto;
+      }
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: linear-gradient(135deg, #5f0a87, #1a5fea);
+      }
+      .success-message {
+        color: #34a853;
+        margin-top: 15px;
+        text-align: center;
+        font-weight: 500;
+        display: none;
+        animation: fadeIn 0.3s ease-in;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .form-group p {
+        margin-top: 12px;
+        color: #666;
+        font-size: 14px;
+      }
+      .form-group a {
+        color: #4285f4;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .form-group a:hover {
+        color: #3367d6;
+        text-decoration: underline;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      button {
+        background-color: #4285f4;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #3367d6;
+      }
+      .success-message {
+        color: green;
+        margin-top: 10px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Core Extract Settings</h1>
+
+    <div class="form-group">
+      <label for="api-key">Gemini API Key:</label>
+      <input type="text" id="api-key" placeholder="Enter your Gemini API key" />
+      <p>
+        You can get an API key from
+        <a href="https://makersuite.google.com/app/apikey" target="_blank"
+          >Google AI Studio</a
+        >
+      </p>
+    </div>
+
+    <div class="form-group">
+      <label for="default-language">Default Summary Language:</label>
+      <select id="default-language" class="settings-select">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="te">Telugu</option>
+        <option value="kn">Kannada</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="tts-voice">Text-to-Speech Voice:</label>
+      <select id="tts-voice" class="settings-select">
+        <option value="">Default Voice</option>
+      </select>
+      <p>Choose your preferred voice for audio summaries</p>
+    </div>
+
+    <button id="save-button">Save Settings</button>
+    <p id="success-message" class="success-message">
+      Settings saved successfully!
+    </p>
+
+    <script src="options.js"></script>
+  </body>
+</html>
