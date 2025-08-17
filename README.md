@@ -42,11 +42,11 @@ It generates concise article summaries in multiple languages using the **Gemini 
 
 ## 🚀 Future Improvements
 
-Add more summarization styles (bullet points, detailed, brief)
+1. Add more summarization styles (bullet points, detailed, brief)
 
-UI enhancements and theme support
+2. UI enhancements and theme support
 
-Export summaries as text or audio files
+3. Export summaries as text or audio files
 
 ---
 
@@ -60,7 +60,9 @@ Web Speech API |
 
 💡 This is a small try and my very first Chrome extension.
 
-<img width="1901" height="958" alt="core extract -1" src="https://github.com/user-attachments/assets/9d53f565-aae5-4179-9da4-b035e8ce664a" />
+<img width="1451" height="898" alt="image" src="https://github.com/user-attachments/assets/adb9c3b0-5100-41ee-b2df-4988c46af15a" />
+
+
 
 
 
